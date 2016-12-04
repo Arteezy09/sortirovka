@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <functional>
-
+#include <algorithm>
 #include <queue>
 
 
