@@ -58,10 +58,10 @@ public:
 
 private:
     
-    auto sort() -> void;
-    auto make_file(std::string, std::vector<stud>) -> void;
-    auto remove_create_files() -> void;
-    auto generate() -> void;
+    void sort();
+    void make_file(std::string, std::vector<stud>);
+    void remove_create_files();
+    void generate();
 
     vector<string> arr_name_file;
     string name_input_file;
@@ -69,26 +69,29 @@ private:
     long long buffer_size;
 };
 
-_sort::_sort(string str1, string str2, int size)
-        : name_input_file(str1),
-          name_output_file(str2),
+_sort::_sort(string st1, string st2, int size)
+        : name_input_file(st1),
+          name_output_file(st2),
           buffer_size(size * 1024 * 1024) {
     generate();
     sort();
 }
 
-auto _sort::make_file(string name_file, vector<stud> arr) -> void {
+void _sort::make_file(string name_file, vector<stud> arr) 
+{
     ofstream file(name_file);
-    if (!file) {
+    if (!file) 
+    {
         std::logic_error("Error: file not open");
     }
-    for (int i = 0; i < arr.size(); ++i) {
+    for (int i = 0; i < arr.size(); ++i)
+    {
         file << arr[i] << std::endl;
     }
     file.close();
 }
 
-auto _sort::generate() -> void {
+void _sort::generate() {
     ifstream file(name_input_file);
 
     unsigned long size = 0;
@@ -117,7 +120,7 @@ auto _sort::generate() -> void {
 }
 
 
-auto _sort::sort() -> void {
+void _sort::sort() {
     std::priority_queue<T> other;
     for (int i = 0; i < arr_name_file.size(); ++i) {
         T tmp = {new std::ifstream(arr_name_file[i])};
@@ -139,7 +142,8 @@ auto _sort::sort() -> void {
     remove_create_files();
 }
 
-auto _sort::remove_create_files() -> void {
+void _sort::remove_create_files()
+{
     for (int i = 0; i < arr_name_file.size(); ++i) {
         auto a = arr_name_file[i].c_str();
         std::remove(a);
