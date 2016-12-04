@@ -89,7 +89,7 @@ auto _sort::make_file(string name_file, vector<stud> arr) -> void {
 }
 
 auto _sort::generate() -> void {
-    sifstream file(name_input_file);
+    ifstream file(name_input_file);
 
     unsigned long size = 0;
     string name_file = "0";
