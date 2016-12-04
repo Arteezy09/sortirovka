@@ -63,13 +63,13 @@ private:
     auto remove_create_files() -> void;
     auto generate() -> void;
 
-    std::vector<std::string> arr_name_file;
-    std::string name_input_file;
-    std::string name_output_file;
+    vector<string> arr_name_file;
+    string name_input_file;
+    string name_output_file;
     long long buffer_size;
 };
 
-_sort::_sort(std::string str1, std::string str2, int size)
+_sort::_sort(string str1, string str2, int size)
         : name_input_file(str1),
           name_output_file(str2),
           buffer_size(size * 1024 * 1024) {
@@ -77,8 +77,8 @@ _sort::_sort(std::string str1, std::string str2, int size)
     sort();
 }
 
-auto _sort::make_file(std::string name_file, std::vector<stud> arr) -> void {
-    std::ofstream file(name_file);
+auto _sort::make_file(string name_file, vector<stud> arr) -> void {
+    ofstream file(name_file);
     if (!file) {
         std::logic_error("Error: file not open");
     }
@@ -89,12 +89,12 @@ auto _sort::make_file(std::string name_file, std::vector<stud> arr) -> void {
 }
 
 auto _sort::generate() -> void {
-    std::ifstream file(name_input_file);
+    sifstream file(name_input_file);
 
     unsigned long size = 0;
-    std::string name_file = "0";
+    string name_file = "0";
     stud data;
-    std::vector<stud> arr;
+    vector<stud> arr;
 
     while (file >> data) {
         size += data.length();
