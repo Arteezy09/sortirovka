@@ -31,7 +31,7 @@ bool operator < (const stud & st1, const stud & st2) {
     return st1.surname < st2.surname;
 }
 
-bool operator < (const T & s1, const A & s2) {
+bool operator < (const T & s1, const T & s2) {
     return s1.data > s2.data;
 }
 
