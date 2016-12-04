@@ -13,7 +13,7 @@ struct data
     string surname;
     string name;
     int year;
-    size_t length() { return surname.size() + name.size() + sizeof(year); }
+    unsigned long length() { return surname.size() + name.size() + sizeof(year); }
 };
 
 
