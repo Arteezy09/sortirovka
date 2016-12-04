@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct data
+struct Data
 {
     string surname;
     string name;
