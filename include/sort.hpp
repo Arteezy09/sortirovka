@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct Data
+struct stud
 {
     string surname;
     string name;
@@ -20,14 +20,14 @@ struct Data
 struct A
 {
     std::ifstream *ptr;
-    Data data;
+    stud data;
 };
 
-inline auto operator>(const Data &tmp1, const Data &tmp2)->bool {
+inline auto operator>(const stud &tmp1, const stud &tmp2)->bool {
     return tmp1.surname > tmp2.surname;
 }
 
-inline auto operator<(const Data &tmp1, const Data &tmp2)->bool {
+inline auto operator<(const stud &tmp1, const stud &tmp2)->bool {
     return tmp1.surname < tmp2.surname;
 }
 
@@ -35,13 +35,13 @@ inline bool operator<(const A &s1, const A &s2) {
     return s1.data > s2.data;
 }
 
-std::ostream & operator<<(std::ostream & output, Data const & str)
+std::ostream & operator<<(std::ostream & output, stud const & str)
 {
     output << str.surname << " " << str.name << " " << str.year;
     return output;
 }
 
-std::istream & operator>>(std::istream & input, Data & str)
+std::istream & operator>>(std::istream & input, stud & str)
 {
     input >> str.surname >> str.name >> str.year;
     return input;
@@ -84,7 +84,7 @@ File_sort::File_sort(std::string str1, std::string str2, int size)
     sort();
 }
 
-auto File_sort::make_file(std::string name_file, std::vector<Data> arr) -> void {
+auto File_sort::make_file(std::string name_file, std::vector<stud> arr) -> void {
     std::ofstream file(name_file);
     if (!file) {
         std::logic_error("Error: file not open");
@@ -100,8 +100,8 @@ auto File_sort::generate() -> void {
 
     unsigned long size = 0;
     std::string name_file = "0";
-    Data data;
-    std::vector<Data> arr;
+    stud data;
+    std::vector<stud> arr;
 
     while (file >> data) {
         size += data.length();
