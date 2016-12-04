@@ -6,11 +6,9 @@
 #include <algorithm>
 #include <queue>
 
-using namespace std;
-
 struct Data{
-    string surname;
-    string name;
+    std::string surname;
+    std::string name;
     unsigned int year;
     auto length() -> unsigned long ;
 };
@@ -21,7 +19,7 @@ auto Data::length() -> unsigned long {
 
 
 struct A {
-    ifstream *ptr;
+    std::ifstream *ptr;
     Data data;
 };
 
@@ -72,13 +70,13 @@ private:
 
     auto generate() -> void;
 
-    vector<string> arr_name_file;
-    string name_input_file;
-    string name_output_file;
+    std::vector<std::string> arr_name_file;
+    std::string name_input_file;
+    std::string name_output_file;
     long long buffer_size;
 };
 
-File_sort::File_sort(string str1, string str2, int size)
+File_sort::File_sort(std::string str1, std::string str2, int size)
         : name_input_file(str1),
           name_output_file(str2),
           buffer_size(size * 1024 * 1024) {
@@ -86,30 +84,30 @@ File_sort::File_sort(string str1, string str2, int size)
     sort();
 }
 
-auto File_sort::make_file(string name_file, vector<Data> arr) -> void {
-    ofstream file(name_file);
+auto File_sort::make_file(std::string name_file, std::vector<Data> arr) -> void {
+    std::ofstream file(name_file);
     if (!file) {
-        logic_error("Error: file not open");
+        std::logic_error("Error: file not open");
     }
     for (int i = 0; i < arr.size(); ++i) {
-        file << arr[i] << endl;
+        file << arr[i] << std::endl;
     }
     file.close();
 }
 
 auto File_sort::generate() -> void {
-    ifstream file(name_input_file);
+    std::ifstream file(name_input_file);
 
     unsigned long size = 0;
-    string name_file = "0";
+    std::string name_file = "0";
     Data data;
-    vector<Data> arr;
+    std::vector<Data> arr;
 
     while (file >> data) {
         size += data.length();
         if (buffer_size - data.length() <= size) {
             arr_name_file.push_back(name_file);
-            sort(arr.begin(), arr.end());
+            std::sort(arr.begin(), arr.end());
             make_file(name_file, arr);
             name_file = arr_name_file.size();
             size = (unsigned long) data.length();
@@ -118,7 +116,7 @@ auto File_sort::generate() -> void {
         arr.push_back(data);
     }
     if (arr.size() > 0) {
-        sort(arr.begin(), arr.end());
+        std::sort(arr.begin(), arr.end());
         arr_name_file.push_back("end.txt");
         make_file("end.txt", arr);
     }
@@ -127,14 +125,14 @@ auto File_sort::generate() -> void {
 
 
 auto File_sort::sort() -> void {
-    priority_queue<A> other;
+    std::priority_queue<A> other;
     for (int i = 0; i < arr_name_file.size(); ++i) {
-        A tmp = {new ifstream(arr_name_file[i])};
+        A tmp = {new std::ifstream(arr_name_file[i])};
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
-    ofstream tmp(name_output_file);
-    string word;
+    std::ofstream tmp(name_output_file);
+    std::string word;
     while (!other.empty()) {
         A tmp1 = other.top();
         tmp << tmp1.data << std::endl;
@@ -151,7 +149,6 @@ auto File_sort::sort() -> void {
 auto File_sort::remove_create_files() -> void {
     for (int i = 0; i < arr_name_file.size(); ++i) {
         auto a = arr_name_file[i].c_str();
-        remove(a);
+        std::remove(a);
     }
 }
-
