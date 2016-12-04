@@ -31,43 +31,36 @@ bool operator < (const stud & st1, const stud & st2) {
     return st1.surname < st2.surname;
 }
 
-bool operator < (const T & s1, const T & s2) {
+bool operator < (const T & st1, const T & st2) {
     return s1.data > s2.data;
 }
 
-ostream & operator << (ostream & output, stud const & str)
+ostream & operator << (ostream & output, stud const & st)
 {
-    output << str.surname << " " << str.name << " " << str.year;
+    output << st.surname << " " << st.name << " " << st.year;
     return output;
 }
 
-istream & operator >> (istream & input, stud & str)
+istream & operator >> (istream & input, stud & st)
 {
-    input >> str.surname >> str.name >> str.year;
+    input >> st.surname >> st.name >> st.year;
     return input;
 }
 
-class File_sort {
+class _sort {
 public:
-    File_sort(std::string, std::string, int buffer_size);
+    _sort(string, string, int buffer_size);
 
-    File_sort(File_sort const &) = delete;
-
-    auto operator=(File_sort const &) -> File_sort & = delete;
-
-    File_sort(File_sort &&) = delete;
-
-    auto operator=(File_sort &&) -> File_sort & = delete;
-
-
+    _sort(_sort const &) = delete;
+    auto operator=(_sort const &) -> _sort & = delete;
+    _sort(_sort &&) = delete;
+    auto operator=(_sort &&) -> _sort & = delete;
 
 private:
+    
     auto sort() -> void;
-
     auto make_file(std::string, std::vector<stud>) -> void;
-
     auto remove_create_files() -> void;
-
     auto generate() -> void;
 
     std::vector<std::string> arr_name_file;
@@ -76,7 +69,7 @@ private:
     long long buffer_size;
 };
 
-File_sort::File_sort(std::string str1, std::string str2, int size)
+_sort::_sort(std::string str1, std::string str2, int size)
         : name_input_file(str1),
           name_output_file(str2),
           buffer_size(size * 1024 * 1024) {
@@ -84,7 +77,7 @@ File_sort::File_sort(std::string str1, std::string str2, int size)
     sort();
 }
 
-auto File_sort::make_file(std::string name_file, std::vector<stud> arr) -> void {
+auto _sort::make_file(std::string name_file, std::vector<stud> arr) -> void {
     std::ofstream file(name_file);
     if (!file) {
         std::logic_error("Error: file not open");
@@ -95,7 +88,7 @@ auto File_sort::make_file(std::string name_file, std::vector<stud> arr) -> void 
     file.close();
 }
 
-auto File_sort::generate() -> void {
+auto _sort::generate() -> void {
     std::ifstream file(name_input_file);
 
     unsigned long size = 0;
@@ -124,7 +117,7 @@ auto File_sort::generate() -> void {
 }
 
 
-auto File_sort::sort() -> void {
+auto _sort::sort() -> void {
     std::priority_queue<T> other;
     for (int i = 0; i < arr_name_file.size(); ++i) {
         T tmp = {new std::ifstream(arr_name_file[i])};
@@ -146,7 +139,7 @@ auto File_sort::sort() -> void {
     remove_create_files();
 }
 
-auto File_sort::remove_create_files() -> void {
+auto _sort::remove_create_files() -> void {
     for (int i = 0; i < arr_name_file.size(); ++i) {
         auto a = arr_name_file[i].c_str();
         std::remove(a);
