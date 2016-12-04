@@ -6,19 +6,19 @@
 #include <algorithm>
 #include <queue>
 
-struct Data{
-    std::string surname;
-    std::string name;
-    unsigned int year;
-    auto length() -> unsigned long ;
+using namespace std;
+
+struct data
+{
+    string surname;
+    string name;
+    int year;
+    size_t length() { return surname.size() + name.size() + sizeof(year); }
 };
 
-auto Data::length() -> unsigned long {
-    return surname.size() + name.size() + sizeof(year);
-}
 
-
-struct A {
+struct A
+{
     std::ifstream *ptr;
     Data data;
 };
