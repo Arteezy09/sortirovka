@@ -32,7 +32,7 @@ bool operator < (const stud & st1, const stud & st2) {
 }
 
 bool operator < (const T & st1, const T & st2) {
-    return s1.data > s2.data;
+    return st1.data > st2.data;
 }
 
 ostream & operator << (ostream & output, stud const & st)
