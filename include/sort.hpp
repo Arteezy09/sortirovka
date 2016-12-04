@@ -23,6 +23,7 @@ struct T
     stud data;
 };
 
+
 bool operator > (const stud & st1, const stud & st2) {
     return st1.surname > st2.surname;
 }
@@ -47,6 +48,7 @@ istream & operator >> (istream & input, stud & st)
     return input;
 }
 
+
 class _sort {
 public:
     _sort(string, string, int buffer_size);
@@ -63,7 +65,7 @@ private:
     void remove_create_files();
     void generate();
 
-    vector<string> arr_name_file;
+    vector<string> f;
     string f1;
     string f2;
     long long buffer_size;
@@ -89,9 +91,9 @@ void _sort::make_file(string name_file, vector<stud> arr)
     file.close();
 }
 
-void _sort::generate() {
+void _sort::generate() 
+{
     ifstream file(f1);
-
     unsigned long size = 0;
     string name_file = "0";
     stud data;
@@ -100,10 +102,10 @@ void _sort::generate() {
     while (file >> data) {
         size += data.length();
         if (buffer_size - data.length() <= size) {
-            arr_name_file.push_back(name_file);
+            f.push_back(name_file);
             std::sort(arr.begin(), arr.end());
             make_file(name_file, arr);
-            name_file = arr_name_file.size();
+            name_file = f.size();
             size = (unsigned long) data.length();
             arr.clear();
         }
@@ -111,7 +113,7 @@ void _sort::generate() {
     }
     if (arr.size() > 0) {
         std::sort(arr.begin(), arr.end());
-        arr_name_file.push_back("end.txt");
+        f.push_back("end.txt");
         make_file("end.txt", arr);
     }
     file.close();
@@ -121,8 +123,8 @@ void _sort::generate() {
 void _sort::sort() 
 {
     std::priority_queue<T> other;
-    for (int i = 0; i < arr_name_file.size(); ++i) {
-        T tmp = {new std::ifstream(arr_name_file[i])};
+    for (int i = 0; i < f.size(); ++i) {
+        T tmp = {new std::ifstream(f[i])};
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
@@ -143,8 +145,9 @@ void _sort::sort()
 
 void _sort::remove_create_files()
 {
-    for (int i = 0; i < arr_name_file.size(); ++i) {
-        auto a = arr_name_file[i].c_str();
+    for (int i = 0; i < f.size(); ++i) 
+    {
+        auto a = f[i].c_str();
         std::remove(a);
     }
 }
