@@ -23,25 +23,25 @@ struct A
     stud data;
 };
 
-inline auto operator>(const stud & tmp1, const stud & tmp2)->bool {
+auto operator>(const stud & tmp1, const stud & tmp2)->bool {
     return tmp1.surname > tmp2.surname;
 }
 
-inline auto operator<(const stud & tmp1, const stud & tmp2)->bool {
+auto operator<(const stud & tmp1, const stud & tmp2)->bool {
     return tmp1.surname < tmp2.surname;
 }
 
-inline bool operator<(const A &s1, const A &s2) {
+bool operator<(const A &s1, const A &s2) {
     return s1.data > s2.data;
 }
 
-std::ostream & operator<<(std::ostream & output, stud const & str)
+ostream & operator<<(ostream & output, stud const & str)
 {
     output << str.surname << " " << str.name << " " << str.year;
     return output;
 }
 
-std::istream & operator>>(std::istream & input, stud & str)
+istream & operator>>(istream & input, stud & str)
 {
     input >> str.surname >> str.name >> str.year;
     return input;
