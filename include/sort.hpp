@@ -1,7 +1,3 @@
-#ifndef sort_hpp
-#define sort_hpp
-#pragma once
-
 #include <iostream>
 #include <cstring>
 #include <fstream>
@@ -158,4 +154,4 @@ auto File_sort::remove_create_files() -> void {
         std::remove(a);
     }
 }
-#endif
+
