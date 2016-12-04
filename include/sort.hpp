@@ -19,7 +19,7 @@ struct stud
 
 struct A
 {
-    std::ifstream *ptr;
+    ifstream *ptr;
     stud data;
 };
 
