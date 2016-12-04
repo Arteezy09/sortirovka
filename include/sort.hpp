@@ -23,11 +23,11 @@ struct A
     stud data;
 };
 
-inline auto operator>(const stud &tmp1, const stud &tmp2)->bool {
+inline auto operator>(const stud & tmp1, const stud & tmp2)->bool {
     return tmp1.surname > tmp2.surname;
 }
 
-inline auto operator<(const stud &tmp1, const stud &tmp2)->bool {
+inline auto operator<(const stud & tmp1, const stud & tmp2)->bool {
     return tmp1.surname < tmp2.surname;
 }
 
@@ -64,7 +64,7 @@ public:
 private:
     auto sort() -> void;
 
-    auto make_file(std::string, std::vector<Data>) -> void;
+    auto make_file(std::string, std::vector<stud>) -> void;
 
     auto remove_create_files() -> void;
 
