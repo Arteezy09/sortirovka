@@ -59,20 +59,18 @@ public:
 private:
     
     void sort();
-    void make_file(std::string, std::vector<stud>);
+    void make_file(string, vector<stud>);
     void remove_create_files();
     void generate();
 
     vector<string> arr_name_file;
-    string name_input_file;
-    string name_output_file;
+    string f1;
+    string f2;
     long long buffer_size;
 };
 
-_sort::_sort(string st1, string st2, int size)
-        : name_input_file(st1),
-          name_output_file(st2),
-          buffer_size(size * 1024 * 1024) {
+_sort::_sort(string st1, string st2, int size) : f1(st1), f2(st2),
+    buffer_size(size * 1024 * 1024) {
     generate();
     sort();
 }
@@ -92,7 +90,7 @@ void _sort::make_file(string name_file, vector<stud> arr)
 }
 
 void _sort::generate() {
-    ifstream file(name_input_file);
+    ifstream file(f1);
 
     unsigned long size = 0;
     string name_file = "0";
@@ -120,14 +118,15 @@ void _sort::generate() {
 }
 
 
-void _sort::sort() {
+void _sort::sort() 
+{
     std::priority_queue<T> other;
     for (int i = 0; i < arr_name_file.size(); ++i) {
         T tmp = {new std::ifstream(arr_name_file[i])};
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
-    std::ofstream tmp(name_output_file);
+    std::ofstream tmp(f2);
     std::string word;
     while (!other.empty()) {
         T tmp1 = other.top();
