@@ -17,31 +17,31 @@ struct stud
 };
 
 
-struct A
+struct T
 {
     ifstream *ptr;
     stud data;
 };
 
-auto operator>(const stud & tmp1, const stud & tmp2)->bool {
-    return tmp1.surname > tmp2.surname;
+bool operator > (const stud & st1, const stud & st2) {
+    return st1.surname > st2.surname;
 }
 
-auto operator<(const stud & tmp1, const stud & tmp2)->bool {
-    return tmp1.surname < tmp2.surname;
+bool operator < (const stud & st1, const stud & st2) {
+    return st1.surname < st2.surname;
 }
 
-bool operator<(const A &s1, const A &s2) {
+bool operator < (const T & s1, const A & s2) {
     return s1.data > s2.data;
 }
 
-ostream & operator<<(ostream & output, stud const & str)
+ostream & operator << (ostream & output, stud const & str)
 {
     output << str.surname << " " << str.name << " " << str.year;
     return output;
 }
 
-istream & operator>>(istream & input, stud & str)
+istream & operator >> (istream & input, stud & str)
 {
     input >> str.surname >> str.name >> str.year;
     return input;
@@ -125,16 +125,16 @@ auto File_sort::generate() -> void {
 
 
 auto File_sort::sort() -> void {
-    std::priority_queue<A> other;
+    std::priority_queue<T> other;
     for (int i = 0; i < arr_name_file.size(); ++i) {
-        A tmp = {new std::ifstream(arr_name_file[i])};
+        T tmp = {new std::ifstream(arr_name_file[i])};
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
     std::ofstream tmp(name_output_file);
     std::string word;
     while (!other.empty()) {
-        A tmp1 = other.top();
+        T tmp1 = other.top();
         tmp << tmp1.data << std::endl;
         other.pop();
         if (!tmp1.ptr->eof() && *tmp1.ptr >> tmp1.data) {
