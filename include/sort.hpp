@@ -82,7 +82,7 @@ Sort::Sort(std::string str1, std::string str2, int size)
     sort();
 }
 
-auto Sort::make_file(std::string name_file, std::vector<Data> &arr) -> void 
+auto Sort::make_file(std::string name_file, std::vector<S> &arr) -> void 
 {
     std::ofstream file(name_file);
     if (!file) 
