@@ -4,12 +4,12 @@
 #include <iostream>
 #include <fstream>
 
- SCENARIO("8mb", "[8mb]")
+/* SCENARIO("8mb", "[8mb]")
  {
   REQUIRE(1 == 1);
- }
+ }*/
 
-/*SCENARIO("8mb", "[8mb]")
+SCENARIO("8mb", "[8mb]")
 {
   _sort other("8mb", "out_8", 1);
   bool x = true;
@@ -30,7 +30,7 @@
   f11.close();
   f22.close();
   REQUIRE(x);
-}*/
+}
 
 // SCENARIO("15mb", "[15mb]")
 // {
