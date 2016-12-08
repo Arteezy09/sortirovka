@@ -73,7 +73,7 @@ private:
     long long buffer_size;
 };
 
-File_sort::File_sort(std::string str1, std::string str2, int size)
+Sort::Sort(std::string str1, std::string str2, int size)
         : name_input_file(str1),
           name_output_file(str2),
           buffer_size(size * 1024 * 1024)
@@ -82,7 +82,7 @@ File_sort::File_sort(std::string str1, std::string str2, int size)
     sort();
 }
 
-auto File_sort::make_file(std::string name_file, std::vector<Data> &arr) -> void 
+auto Sort::make_file(std::string name_file, std::vector<Data> &arr) -> void 
 {
     std::ofstream file(name_file);
     if (!file) 
@@ -95,7 +95,7 @@ auto File_sort::make_file(std::string name_file, std::vector<Data> &arr) -> void
     file.close();
 }
 
-auto File_sort::generate() -> void {
+auto Sort::generate() -> void {
     std::ifstream file(name_input_file);
 
     unsigned long size = 0;
@@ -125,7 +125,7 @@ auto File_sort::generate() -> void {
 }
 
 
-auto File_sort::sort() -> void {
+auto Sort::sort() -> void {
     std::priority_queue<A> other;
     for (int i = 0; i < arr_name_file.size(); ++i) {
         A tmp = {new std::ifstream(arr_name_file[i])};
@@ -147,7 +147,7 @@ auto File_sort::sort() -> void {
     remove_create_files();
 }
 
-auto File_sort::remove_create_files() -> void {
+auto Sort::remove_create_files() -> void {
     for (int i = 0; i < arr_name_file.size(); ++i) {
         auto a = arr_name_file[i].c_str();
         std::remove(a);
