@@ -26,6 +26,26 @@ struct A
     S data;
 };
 
+
+bool operator > (const S & s1, const S & s2) 
+{ return s1.name > s2.name; }
+
+bool operator < (const S & s1, const S & s2) 
+{ return s1.name < s2.name; }
+
+bool operator < (const A & s1, const A & s2) 
+{ return s1.data > s2.data; }
+
+ostream & operator << (ostream & output, S const & s) {
+    output << s.surname << " " << s.name << " " << s.year;
+    return output;
+}
+
+istream & operator >> (istream & input, S & s) {
+    input >> s.surname >> s.name >> s.year;
+    return input;
+}
+
 class Sort {
 public:
     Sort(string, string, int buffer_size);
@@ -130,21 +150,4 @@ auto Sort::remove_create_files() -> void {
 }
 
 
-bool operator > (const S & s1, const S & s2) 
-{ return s1.name > s2.name; }
 
-bool operator < (const S & s1, const S & s2) 
-{ return s1.name < s2.name; }
-
-bool operator < (const A & s1, const A & s2) 
-{ return s1.data > s2.data; }
-
-ostream & operator << (ostream & output, S const & s) {
-    output << s.surname << " " << s.name << " " << s.year;
-    return output;
-}
-
-istream & operator >> (istream & input, S & s) {
-    input >> s.surname >> s.name >> s.year;
-    return input;
-}
