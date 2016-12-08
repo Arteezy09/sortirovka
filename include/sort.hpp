@@ -61,7 +61,7 @@ public:
 private:
     auto sort() -> void;
 
-    auto make_file(std::string, std::vector<Data>&) -> void;
+    auto make_file(std::string, std::vector<S>&) -> void;
 
     auto remove_create_files() -> void;
 
