@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct stud
+struct S
 {
     string surname;
     string name;
@@ -17,46 +17,46 @@ struct stud
 };
 
 
-struct T
+struct A
 {
     ifstream *ptr;
-    stud data;
+    S data;
 };
 
 
-bool operator > (const stud & st1, const stud & st2) {
-    return st1.surname > st2.surname;
+bool operator > (const S & s1, const S & s2){
+    return s1.surname > s2.surname;
 }
 
-bool operator < (const stud & st1, const stud & st2) {
-    return st1.surname < st2.surname;
+bool operator < (const S & s1, const S & s2){
+    return s1.surname < s2.surname;
 }
 
-bool operator < (const T & st1, const T & st2) {
-    return st1.data > st2.data;
+bool operator < (const A & s1, const A & s2){
+    return s1.data > s2.data;
 }
 
-ostream & operator << (ostream & output, stud const & st)
+ostream & operator << (ostream & output, S const & s)
 {
-    output << st.surname << " " << st.name << " " << st.year;
+    output << s.surname << " " << s.name << " " << s.year;
     return output;
 }
 
-istream & operator >> (istream & input, stud & st)
+istream & operator >> (istream & input, S & s)
 {
-    input >> st.surname >> st.name >> st.year;
+    input >> s.surname >> s.name >> s.year;
     return input;
 }
 
 
-class _sort {
+class Sort {
 public:
-    _sort(string, string, int buffer_size);
+    Sort(string, string, int buffer_size);
 
-    _sort(_sort const &) = delete;
-    auto operator=(_sort const &) -> _sort & = delete;
-    _sort(_sort &&) = delete;
-    auto operator=(_sort &&) -> _sort & = delete;
+    Sort(Sort const &) = delete;
+    auto operator=(Sort const &) -> Sort & = delete;
+    Sort(Sort &&) = delete;
+    auto operator=(Sort &&) -> Sort & = delete;
 
 private:
     
@@ -71,7 +71,7 @@ private:
     long long buffer_size;
 };
 
-_sort::_sort(string st1, string st2, int size) : f1(st1), f2(st2),
+_sort::_sort(string s1, string s2, int size) : f1(s1), f2(s2),
     buffer_size(size * 1024 * 1024) {
     generate();
     sort();
@@ -86,7 +86,7 @@ void _sort::make_file(string name_file, vector<stud> arr)
     }
     for (int i = 0; i < arr.size(); ++i)
     {
-        file << arr[i] << std::endl;
+        file << arr[i] << endl;
     }
     file.close();
 }
@@ -94,29 +94,32 @@ void _sort::make_file(string name_file, vector<stud> arr)
 void _sort::generate() 
 {
     ifstream file(f1);
+
     unsigned long size = 0;
     string name_file = "0";
-    stud data;
-    vector<stud> arr;
+    S data;
+    std::vector<S> arr(buffer_size / 24);
+    arr.clear();
 
     while (file >> data) {
-        size += data.length();
-        if (buffer_size - data.length() <= size) {
+        arr.push_back(data);
+        ++size;
+        if (buffer_size / 24 <= size) {
             f.push_back(name_file);
-            std::sort(arr.begin(), arr.end());
+            sort(arr.begin(), arr.end());
             make_file(name_file, arr);
             name_file = f.size();
-            size = (unsigned long) data.length();
+            size = 0;
             arr.clear();
         }
-        arr.push_back(data);
     }
     if (arr.size() > 0) {
-        std::sort(arr.begin(), arr.end());
+        sort(arr.begin(), arr.end());
         f.push_back("end.txt");
         make_file("end.txt", arr);
     }
     file.close();
+
 }
 
 
@@ -124,15 +127,15 @@ void _sort::sort()
 {
     std::priority_queue<T> other;
     for (int i = 0; i < f.size(); ++i) {
-        T tmp = {new std::ifstream(f[i])};
+        A tmp = {new std::ifstream(f[i])};
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
     std::ofstream tmp(f2);
     std::string word;
     while (!other.empty()) {
-        T tmp1 = other.top();
-        tmp << tmp1.data << std::endl;
+        A tmp1 = other.top();
+        tmp << tmp1.data << endl;
         other.pop();
         if (!tmp1.ptr->eof() && *tmp1.ptr >> tmp1.data) {
             other.push(tmp1);
