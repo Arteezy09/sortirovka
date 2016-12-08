@@ -5,8 +5,11 @@
 #include <functional>
 #include <algorithm>
 #include <queue>
+#include <string>
+
 
 using namespace std;
+
 
 struct S
 {
