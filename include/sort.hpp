@@ -50,30 +50,28 @@ class Sort {
 public:
     Sort(string, string, int buffer_size);
 
+    
     Sort(Sort const &) = delete;
-
     auto operator = (Sort const &) -> Sort & = delete;
-
     Sort(Sort && ) = delete;
-
     auto operator = (Sort && ) -> Sort & = delete;
 
 private:
     auto sort() -> void;
 
-    auto make_file(std::string, std::vector<S>&) -> void;
+    auto make_file(string, vector<S> &) -> void;
 
     auto remove_create_files() -> void;
 
     auto generate() -> void;
 
-    std::vector<std::string> arr_name_file;
-    std::string name_input_file;
-    std::string name_output_file;
+    vector<string> file1;
+    string name_input_file;
+    string name_output_file;
     long long buffer_size;
 };
 
-Sort::Sort(std::string str1, std::string str2, int size)
+Sort::Sort(string str1, string str2, int size)
         : name_input_file(str1),
           name_output_file(str2),
           buffer_size(size * 1024 * 1024)
@@ -96,10 +94,10 @@ auto Sort::make_file(std::string name_file, std::vector<S> &arr) -> void
 }
 
 auto Sort::generate() -> void {
-    std::ifstream file(name_input_file);
+    ifstream file(name_input_file);
 
     unsigned long size = 0;
-    std::string name_file = "0";
+    string name_file = "0";
     S data;
     std::vector<S> arr(buffer_size / 24);
     arr.clear();
@@ -108,17 +106,17 @@ auto Sort::generate() -> void {
         arr.push_back(data);
         ++size;
         if (buffer_size / 24 <= size) {
-            arr_name_file.push_back(name_file);
+            file1.push_back(name_file);
             std::sort(arr.begin(), arr.end());
             make_file(name_file, arr);
-            name_file = arr_name_file.size();
+            name_file = file1.size();
             size = 0;
             arr.clear();
         }
     }
     if (arr.size() > 0) {
         std::sort(arr.begin(), arr.end());
-        arr_name_file.push_back("end.txt");
+        file1.push_back("end.txt");
         make_file("end.txt", arr);
     }
     file.close();
@@ -127,8 +125,8 @@ auto Sort::generate() -> void {
 
 auto Sort::sort() -> void {
     std::priority_queue<A> other;
-    for (int i = 0; i < arr_name_file.size(); ++i) {
-        A tmp = {new std::ifstream(arr_name_file[i])};
+    for (int i = 0; i < file1.size(); ++i) {
+        A tmp = {new ifstream(file1[i])};
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
@@ -148,8 +146,8 @@ auto Sort::sort() -> void {
 }
 
 auto Sort::remove_create_files() -> void {
-    for (int i = 0; i < arr_name_file.size(); ++i) {
-        auto a = arr_name_file[i].c_str();
+    for (int i = 0; i < file1.size(); ++i) {
+        auto a = file1[i].c_str();
         std::remove(a);
     }
 }
