@@ -57,30 +57,28 @@ public:
     auto operator = (Sort && ) -> Sort & = delete;
 
 private:
-    auto sort() -> void;
+    
+    void sort();
 
-    auto make_file(string, vector<S> &) -> void;
+    void make_file(string, vector<S> &);
 
-    auto remove_create_files() -> void;
+    void remove_create_files();
 
-    auto generate() -> void;
+    void generate();
 
-    vector<string> file1;
-    string input_file;
-    string output_file;
+    vector<string> file_;
+    string in_file_;
+    string out_file_;
     long long buffer_size;
 };
 
-Sort::Sort(string str1, string str2, int size)
-        : input_file(str1),
-          output_file(str2),
-          buffer_size(size * 1024 * 1024)
+Sort::Sort(string str1, string str2, int size) : in_file_(str1), out_file_(str2), buffer_size(size * 1024 * 1024)
 {
     generate();
     sort();
 }
 
-auto Sort::make_file(std::string name_file, std::vector<S> &arr) -> void 
+void Sort::make_file(std::string name_file, std::vector<S> &arr) 
 {
     std::ofstream file(name_file);
     if (!file) 
@@ -93,8 +91,8 @@ auto Sort::make_file(std::string name_file, std::vector<S> &arr) -> void
     file.close();
 }
 
-auto Sort::generate() -> void {
-    ifstream file(input_file);
+void Sort::generate() {
+    ifstream file(in_file);
 
     unsigned long size = 0;
     string name_file = "0";
@@ -105,32 +103,33 @@ auto Sort::generate() -> void {
     while (file >> data) {
         arr.push_back(data);
         ++size;
-        if (buffer_size / 24 <= size) {
-            file1.push_back(name_file);
+        if (buffer_size / 24 <= size)
+        {
+            file_.push_back(name_file);
             std::sort(arr.begin(), arr.end());
             make_file(name_file, arr);
-            name_file = file1.size();
+            name_file = file_.size();
             size = 0;
             arr.clear();
         }
     }
     if (arr.size() > 0) {
         std::sort(arr.begin(), arr.end());
-        file1.push_back("end.txt");
+        file_.push_back("end.txt");
         make_file("end.txt", arr);
     }
     file.close();
 }
 
 
-auto Sort::sort() -> void {
+void Sort::sort() {
     std::priority_queue<A> other;
-    for (int i = 0; i < file1.size(); ++i) {
-        A tmp = {new ifstream(file1[i])};
+    for (int i = 0; i < file_.size(); ++i) {
+        A tmp = {new ifstream(file_[i])};
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
-    std::ofstream tmp(output_file);
+    std::ofstream tmp(out_file_);
     std::string word;
     while (!other.empty()) {
         A tmp1 = other.top();
@@ -145,9 +144,11 @@ auto Sort::sort() -> void {
     remove_create_files();
 }
 
-auto Sort::remove_create_files() -> void {
-    for (int i = 0; i < file1.size(); ++i) {
-        auto a = file1[i].c_str();
+void Sort::remove_create_files()
+{
+    for (int i = 0; i < file1.size(); ++i)
+    {
+        auto a = file_[i].c_str();
         std::remove(a);
     }
 }
