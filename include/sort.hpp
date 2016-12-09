@@ -66,14 +66,14 @@ private:
     auto generate() -> void;
 
     vector<string> file1;
-    string name_input_file;
-    string name_output_file;
+    string input_file;
+    string output_file;
     long long buffer_size;
 };
 
 Sort::Sort(string str1, string str2, int size)
-        : name_input_file(str1),
-          name_output_file(str2),
+        : input_file(str1),
+          output_file(str2),
           buffer_size(size * 1024 * 1024)
 {
     generate();
@@ -94,7 +94,7 @@ auto Sort::make_file(std::string name_file, std::vector<S> &arr) -> void
 }
 
 auto Sort::generate() -> void {
-    ifstream file(name_input_file);
+    ifstream file(input_file);
 
     unsigned long size = 0;
     string name_file = "0";
@@ -130,7 +130,7 @@ auto Sort::sort() -> void {
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
-    std::ofstream tmp(name_output_file);
+    std::ofstream tmp(output_file);
     std::string word;
     while (!other.empty()) {
         A tmp1 = other.top();
