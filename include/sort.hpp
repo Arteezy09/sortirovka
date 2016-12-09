@@ -92,7 +92,7 @@ void Sort::make_file(std::string name_file, std::vector<S> &arr)
 }
 
 void Sort::generate() {
-    ifstream file(in_file);
+    ifstream file(in_file_);
 
     unsigned long size = 0;
     string name_file = "0";
