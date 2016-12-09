@@ -146,7 +146,7 @@ void Sort::sort() {
 
 void Sort::remove_create_files()
 {
-    for (int i = 0; i < file1.size(); ++i)
+    for (int i = 0; i < file_.size(); ++i)
     {
         auto a = file_[i].c_str();
         std::remove(a);
