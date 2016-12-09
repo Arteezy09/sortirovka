@@ -92,15 +92,16 @@ void Sort::make_file(std::string name_file, std::vector<S> &arr)
 }
 
 void Sort::generate() {
+    
     ifstream file(in_file_);
-
     unsigned long size = 0;
     string name_file = "0";
     S data;
     std::vector<S> arr(buffer_size / 24);
     arr.clear();
 
-    while (file >> data) {
+    while (file >> data)
+    {
         arr.push_back(data);
         ++size;
         if (buffer_size / 24 <= size)
@@ -113,7 +114,8 @@ void Sort::generate() {
             arr.clear();
         }
     }
-    if (arr.size() > 0) {
+    if (arr.size() > 0) 
+    {
         std::sort(arr.begin(), arr.end());
         file_.push_back("end.txt");
         make_file("end.txt", arr);
@@ -124,20 +126,25 @@ void Sort::generate() {
 
 void Sort::sort() {
     std::priority_queue<A> other;
-    for (int i = 0; i < file_.size(); ++i) {
+    for (int i = 0; i < file_.size(); ++i) 
+    {
         A tmp = {new ifstream(file_[i])};
         *tmp.ptr >> tmp.data;
         other.push(tmp);
     }
     std::ofstream tmp(out_file_);
     std::string word;
-    while (!other.empty()) {
+    while (!other.empty()) 
+    {
         A tmp1 = other.top();
         tmp << tmp1.data << std::endl;
         other.pop();
-        if (!tmp1.ptr->eof() && *tmp1.ptr >> tmp1.data) {
+        if (!tmp1.ptr->eof() && *tmp1.ptr >> tmp1.data)
+        {
             other.push(tmp1);
-        } else {
+        } 
+        else 
+        {
             tmp1.ptr->close();
         }
     }
